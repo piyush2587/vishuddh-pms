@@ -100,7 +100,7 @@ for ticker in stocks:
 
         features = np.array([[len(df), ma_7, ma_30]])
         next_price = model.predict(features)[0]
-        st.success(f"📌 Predicted next price for {ticker}: ₹{next_price:.2f}")
+        st.success(f"📌 Predicted next price for {ticker}: ₹{float(next_price):.2f}")
     except Exception as e:
         st.warning(f"Could not compute next price prediction for {ticker}: {e}")
 
