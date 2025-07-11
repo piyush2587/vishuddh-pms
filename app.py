@@ -12,11 +12,11 @@ st.set_page_config(page_title="Vishuddh PMS – AI Stock Predictor", layout="wid
 st.title("📈 Vishuddh PMS – AI Stock Price Predictor")
 
 # Sidebar stock selection
-stocks = st.sidebar.multiselect(
-    "Select one or more NSE stocks (e.g., RELIANCE.NS, TCS.NS)",
-    ["RELIANCE.NS", "TCS.NS", "INFY.NS", "HDFCBANK.NS", "ITC.NS"],
-    default=["RELIANCE.NS"]
+symbols_input = st.sidebar.text_input(
+    "Enter NSE stock symbols separated by commas (e.g., RELIANCE.NS, TCS.NS)",
+    "RELIANCE.NS"
 )
+stocks = [s.strip().upper() for s in symbols_input.split(",") if s.strip()]
 
 start_date = st.sidebar.date_input("Start Date", datetime.date(2015, 1, 1))
 end_date = st.sidebar.date_input("End Date", datetime.date.today())
