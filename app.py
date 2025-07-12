@@ -124,7 +124,15 @@ for ticker in stocks:
         next_price = float(model.predict(features)[0])
         st.success(f"📌 Predicted next price for {ticker}: ₹{next_price:.2f}")
 
-        last_close = df['Close'].iloc[-1]
+        last_close_raw = df['Close'].iloc[-1]
+last_close = float(last_close_raw.item()) if hasattr(last_close_raw, "item") else float(last_close_raw)
+
+if next_price > last_close * 1.01:
+    st.info("🔼 AI Insight: Likely Uptrend")
+elif next_price < last_close * 0.99:
+    st.info("🔽 AI Insight: Possible Dip")
+else:
+    st.info("⚖️ AI Insight: Sideways Market")
         if next_price > last_close * 1.01:
             st.info("🔼 AI Insight: Likely Uptrend")
         elif next_price < last_close * 0.99:
