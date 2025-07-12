@@ -105,7 +105,20 @@ for ticker in stocks:
     # Predict next day's price
     try:
         last = df.iloc[-1]
-        features = np.array([[len(df), last['7MA'], last['30MA'], last['RSI'], last['MACD'], last['Signal']]])
+        def to_float(val):
+    try:
+        return float(val.item()) if hasattr(val, "item") else float(val)
+    except:
+        return 0.0  # fallback if NaN or invalid
+
+features = np.array([[
+    len(df),
+    to_float(last['7MA']),
+    to_float(last['30MA']),
+    to_float(last['RSI']),
+    to_float(last['MACD']),
+    to_float(last['Signal'])
+]])
         next_price = float(model.predict(features)[0])
         st.success(f"📌 Predicted next price for {ticker}: ₹{next_price:.2f}")
 
